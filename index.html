@@ -1,42 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
-<meta charset="UTF-8">
-<title>LAGE – ID</title>
-<style>
-body { background:#000; color:#0f0; font-family:monospace; padding:20px; }
-pre { background:#111; padding:10px; border:1px solid #333; }
-</style>
+  <meta charset="UTF-8">
+  <title>GLOBAL – index</title>
+  <style>
+    body { background:#000; color:#0f0; font-family:monospace; padding:20px; }
+    h1 { color:#0f0; }
+    .tp { margin-top:20px; padding:10px; border:1px solid #0f0; }
+    pre { font-size:14px; }
+  </style>
 </head>
-<body>
 
-<h2>LAGE – Identität</h2>
+<body>
+<h1>GLOBAL – INDEX</h1>
 
 <pre>
-ID: LAGE-ROOT-12ALL
-ROLE: Positions-Ebene
-MODE: RAW / RESPO / NC
-STATUS: ready
+INDEX: GLOBAL-MASTER
+STATUS: aktiv
+ROLE: System-Root
 
-BEWEGUNG:
-- W = vor
-- S = zurück
-- A = links
-- D = rechts
-- Q = hoch
-- R = runter
-- Y = rotate
-- C = cycle
-- X = neutral
+MODULE:
+  pyPI = aktiv
+  LAGE = aktiv
+  NC36 = Motor
+  ULRM = Bewegung
 
-EBENEN:
-- TMP-LAGE
-- REAL-LAGE
-- GHOST-LAGE
-- Public-LAGE
-- RESPO-LAGE
-- 12ALL-LAGE
+TP-ACHSE (horizontal):
+  tp3  = IN
+  tp4  = D-Start
+  tp6  = EXX
+  tp8  = D-Ende
+  tp9  = OUT
+  tp12 = OUT-Raum
+
+RESULT:
+  GLOBAL-INDEX ist geladen.
+  System kann jetzt Fusion starten.
 </pre>
+
+<div class="tp">
+<strong>Horizontale Raumlinie:</strong><br>
+[tp3] —— [tp4] —— [tp6] —— [tp8] —— [tp9] —— [tp12]<br>
+IN —— D-Start —— EXX —— D-Ende —— OUT —— OUT-Raum
+</div>
 
 </body>
 </html>
