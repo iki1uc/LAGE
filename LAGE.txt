@@ -1,0 +1,8 @@
+MODUL: LAGE
+STATUS: aktiv
+RICHITGKEIT: 4er (3/4 erfüllt)
+READY: 82%
+OVERRIDE: DOCH
+NEUTRAL: EGAL
+RESPO: ((respo))
+REAL: gesetzt
