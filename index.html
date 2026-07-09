@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>LAGE – 12ALL Orientierung</title>
+<style>
+body { background:#000; color:#0f0; font-family:monospace; padding:20px; }
+button { background:#111; border:1px solid #0f0; color:#0f0; padding:6px 12px; margin:6px; }
+#out { margin-top:20px; white-space:pre; }
+</style>
+</head>
+<body>
+
+<h2>LAGE – Orientierung & Führung (12ALL)</h2>
+
+<button onclick="move('vor')">W</button>
+<button onclick="move('zurück')">S</button>
+<button onclick="move('links')">A</button>
+<button onclick="move('rechts')">D</button>
+<button onclick="move('hoch')">Q</button>
+<button onclick="move('runter')">R</button>
+<button onclick="move('rotate')">Y</button>
+<button onclick="move('cycle')">C</button>
+<button onclick="move('neutral')">X</button>
+
+<pre id="out">LAGE bereit.</pre>
+
+<script>
+function move(action) {
+  document.getElementById('out').textContent =
+    'Bewegung: ' + action + '\n' +
+    'RESPO-Führung aktiv\n' +
+    '12ALL-Lage sichtbar\n' +
+    'TMP-LAGE aktualisiert';
+}
+</script>
+
+</body>
+</html>
