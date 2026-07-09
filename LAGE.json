@@ -1,0 +1,18 @@
+{
+  "module": "LAGE",
+  "version": "1.0",
+  "status": "active",
+  "core": "LAGE-CODE-FINAL.nc",
+  "respo": "((respo))",
+  "level": "4er-Richtigkeit",
+  "ready": 82,
+  "override": "DOCH",
+  "neutral": "EGAL",
+  "bind": {
+    "IKL": true,
+    "NC": true,
+    "RESPO": true,
+    "META": true,
+    "GHOST": true
+  }
+}
