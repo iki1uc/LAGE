@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>LAGE – index</title>
+  <style>
+    body { background:#000; color:#0f0; font-family:monospace; padding:20px; }
+    h1 { color:#0f0; }
+    .tp { margin-top:20px; padding:10px; border:1px solid #0f0; }
+    pre { font-size:14px; }
+  </style>
+</head>
+
+<body>
+<h1>LAGE – INDEX</h1>
+
+<pre>
+INDEX: LAGE-MASTER
+STATUS: aktiv
+ROLE: Raum-Modul
+
+MOTOR: NC36
+  ⟢ = IN
+  ⋇ = EXX
+  ⟣ = OUT
+
+ULRM:
+  W S A D Q R Y C X = aktiv
+
+TP-ACHSE (horizontal):
+  tp3  = IN
+  tp4  = D-Start
+  tp6  = EXX
+  tp8  = D-Ende
+  tp9  = OUT
+  tp12 = OUT-Raum
+
+RESULT:
+  LAGE führt jetzt den Raum.
+  pyPI ist neutral.
+</pre>
+
+<div class="tp">
+<strong>Horizontale Raumlinie:</strong><br>
+[tp3] —— [tp4] —— [tp6] —— [tp8] —— [tp9] —— [tp12]<br>
+IN —— D-Start —— EXX —— D-Ende —— OUT —— OUT-Raum
+</div>
+
+</body>
+</html>
