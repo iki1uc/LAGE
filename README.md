@@ -1,6 +1,6 @@
 # LAGE – Position / Stabilität / 12e / 6D
 
-LAGE ist die Position und Stabilität des iki1uc‑Systems.
+LAGE ist die Positions- und Stabilitäts-Ebene des iki1uc-Systems.
 
 Alle Konstellationen = TMP  
 Alle Frequenzen = 12e  
@@ -10,4 +10,4 @@ Alle Sequenzen = 360°
 LAGE ist kompatibel mit:
 ROOT, ACHSE, TMP, laTER, ORT
 
-LAGE ist D3 der 6D‑Matrix.
+LAGE ist D3 der 6D-Matrix.
