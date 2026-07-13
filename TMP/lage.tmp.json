@@ -1,23 +1,8 @@
 {
-  "id": "LAGE-TMP-12ALL",
-  "pos": {
-    "x": 0,
-    "y": 0,
-    "z": 0,
-    "r": 0,
-    "c": 0
-  },
-  "keys": {
-    "W": "vor",
-    "S": "zurück",
-    "A": "links",
-    "D": "rechts",
-    "Q": "hoch",
-    "R": "runter",
-    "Y": "rotate",
-    "C": "cycle",
-    "X": "neutral"
-  },
-  "mode": "RAW",
-  "public": true
+  "NAME": "LAGE",
+  "KONSTELLATION": "TMP",
+  "FREQ": "12e",
+  "6D": "D3",
+  "360": "Positions-Sequenz",
+  "ACTIVE": true
 }
