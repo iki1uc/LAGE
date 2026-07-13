@@ -1,38 +1,13 @@
-LAGE-CODE-FINAL.nc
-────────────────────────────────────────
+# LAGE – Final Code (12e + 6D + TMP)
 
-# LAGE
-STATE: aktiv
-LEVEL: 4er-Richtigkeit (3/4 erfüllt)
-READY: 82%
+LAGE = /lage/
 
-# INTERAKTION
-USE: bestätigt
-MOV: bestätigt
-USER: gebunden
-MODI: ersetzt durch RESPO-MODI
+FREQ.12 = iki → bir → uc → LE → iki1uc → GO → sys → tem → AU → RA → TET → RIZ → …
 
-# MIR/DIR
-MIR: aktiv
-DIR: aktiv
+KONSTELLATION = TMP
 
-# OVERRIDE
-DOCH: aktiv (QI/IQQ-Schaltung)
-EGAL: neutralisiert (durch DOCH blockiert)
+D3 = LAGE
 
-# RESPO
-RESPO-MODI: übernommen
-RESPO-INTERAKTIONATOR: aktiv
-KENNTNISNAHME: erzwungen
-IGNORIERUNG: nicht möglich
+SEQ.360 = D3 → D4 → D5 → D0 → D1 → D2 → D3
 
-# REAL
-REAL: gesetzt (Direkt-REAL ohne Neutralisierung)
-
-────────────────────────────────────────
-DATEINAME: LAGE_CODE_FINAL.nc
-GRÜNDER: 1
-²: MIR
-³: DIR
-RESPO: ((respo))
-CODE: LAGE-FINAL-001
+ACTIVE = TRUE
