@@ -1,48 +1,74 @@
-/* ORBIT-SPHERE */
+/* ORBIT-SPHERE · EVO-6D */
 .orbitSphere {
-    width:220px;
-    height:220px;
+    width:260px;
+    height:260px;
     margin:auto;
     border-radius:50%;
-    background: radial-gradient(circle, #000 0%, #001 40%, #003 70%, #000 100%);
-    box-shadow: 0 0 40px #0af, inset 0 0 60px #000;
+    background: radial-gradient(circle at 50% 50%,
+        #000 0%,
+        #02030a 35%,
+        #001a33 60%,
+        #000 100%
+    );
+    box-shadow:
+        0 0 60px #0af,
+        0 0 120px #003,
+        inset 0 0 80px #000;
     display:flex;
     align-items:center;
     justify-content:center;
-    animation:spinSphere 8s linear infinite;
+    animation:spinSphere 10s linear infinite;
     transform-style:preserve-3d;
     position:relative;
+    perspective:800px;
 }
 
-/* SCHWARZES LOCH */
+/* SCHWARZES LOCH · GRAVITY CORE */
 .blackHole {
-    width:60px;
-    height:60px;
+    width:80px;
+    height:80px;
     border-radius:50%;
-    background: radial-gradient(circle, #000 0%, #050505 40%, #000 100%);
-    box-shadow: inset 0 0 30px #000, 0 0 20px #0ff;
+    background: radial-gradient(circle,
+        #000 0%,
+        #050505 40%,
+        #000 100%
+    );
+    box-shadow:
+        inset 0 0 40px #000,
+        0 0 30px #0ff,
+        0 0 60px #0af;
     position:absolute;
     z-index:5;
-    animation:holePulse 3s ease-in-out infinite;
+    animation:holePulse 2.4s ease-in-out infinite;
+    filter:blur(0.5px);
 }
 
-/* ORBIT SYMBOL */
+/* ORBIT SYMBOL · FLOATING */
 .orbitSymbol {
-    font-size:70px;
+    font-size:80px;
     color:#6cf;
-    text-shadow:0 0 15px #0ff;
+    text-shadow:
+        0 0 20px #0ff,
+        0 0 40px #0af;
     z-index:10;
     position:relative;
+    animation:floatSymbol 4s ease-in-out infinite;
 }
 
 /* ANIMATIONEN */
 @keyframes holePulse {
-    0% { transform:scale(1); box-shadow: inset 0 0 30px #000, 0 0 20px #0ff; }
-    50% { transform:scale(1.2); box-shadow: inset 0 0 40px #000, 0 0 40px #0ff; }
-    100% { transform:scale(1); box-shadow: inset 0 0 30px #000, 0 0 20px #0ff; }
+    0%   { transform:scale(1);   box-shadow: inset 0 0 40px #000, 0 0 30px #0ff; }
+    50%  { transform:scale(1.25); box-shadow: inset 0 0 60px #000, 0 0 60px #0ff; }
+    100% { transform:scale(1);   box-shadow: inset 0 0 40px #000, 0 0 30px #0ff; }
 }
 
 @keyframes spinSphere {
     from { transform:rotateY(0deg) rotateX(0deg); }
     to   { transform:rotateY(360deg) rotateX(360deg); }
+}
+
+@keyframes floatSymbol {
+    0%   { transform:translateY(0px); }
+    50%  { transform:translateY(-10px); }
+    100% { transform:translateY(0px); }
 }
