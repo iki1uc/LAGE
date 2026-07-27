@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>LAGE – Systemkern · ECO</title>
+<title>LAGE – 6D Systemkern · ECO</title>
 
 <style>
 body {
@@ -114,11 +114,25 @@ h2 { color:#0ff; margin-top:30px; }
     transition:width 1s;
     box-shadow:0 0 10px #0f0;
 }
+
+/* LAGE Status */
+.statusBox {
+    background:#111;
+    border:1px solid #333;
+    padding:10px;
+    margin-top:20px;
+    border-radius:6px;
+}
 </style>
 </head>
 <body>
 
-<h1>LAGE – Systemkern · ECO</h1>
+<h1>LAGE – 6D Systemkern · ECO</h1>
+
+<div class="box">
+    <h2>6D‑Positionskarte</h2>
+    <pre id="lageStatus"></pre>
+</div>
 
 <div class="box">
     <h2>Orbit‑C (3D‑Sphere)</h2>
@@ -157,6 +171,9 @@ h2 { color:#0ff; margin-top:30px; }
 
 <script type="module">
 
+/* LAGE SYS LADEN */
+import lage from "./TMP/lage.tmp.json" assert { type:"json" };
+
 /* VECTOR LADEN */
 import raw from "../VECTOR/core/vector_raw.json" assert { type:"json" };
 import VECTOR_EXP from "../VECTOR/core/vector.EXP.js";
@@ -176,6 +193,10 @@ import { PIPE12 } from "../IMPORT/PIPE.js";
 
 /* WERT */
 const value = 42;
+
+/* LAGE STATUS */
+document.getElementById("lageStatus").innerText =
+    JSON.stringify(lage, null, 2);
 
 /* ORBIT‑C */
 const ORBIT_C = ["⊙","⊕","⊗","○","□","△","◇","∞"];
