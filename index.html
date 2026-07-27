@@ -2,37 +2,238 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title>LAGE – Systemkern</title>
+<title>LAGE – Systemkern · ECO</title>
+
 <style>
-body { background:#000; color:#0f0; font-family:monospace; padding:20px; }
-h1, h2 { color:#6cf; }
-a { color:#6cf; display:block; margin:10px 0; }
-pre { background:#111; border:1px solid #333; padding:10px; }
+body {
+    background:#000;
+    color:#0f0;
+    font-family:Consolas;
+    padding:20px;
+}
+
+/* Überschriften */
+h1 { color:#6cf; text-shadow:0 0 10px #09f; }
+h2 { color:#0ff; margin-top:30px; }
+
+/* Boxen */
+.box {
+    background:#111;
+    border:1px solid #333;
+    padding:15px;
+    margin-bottom:30px;
+    border-radius:8px;
+}
+
+/* Orbit‑Sphere */
+.orbitSphere {
+    width:180px;
+    height:180px;
+    margin:auto;
+    border-radius:50%;
+    background: radial-gradient(circle, #003 0%, #000 70%);
+    box-shadow: 0 0 25px #0af;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    animation:spinSphere 6s linear infinite;
+    transform-style:preserve-3d;
+    font-size:70px;
+    color:#6cf;
+}
+@keyframes spinSphere {
+    from { transform:rotateY(0deg) rotateX(0deg); }
+    to   { transform:rotateY(360deg) rotateX(360deg); }
+}
+
+/* Stationen Heatmap */
+.stationMap td {
+    padding:8px;
+    border:1px solid #222;
+    text-align:center;
+    cursor:pointer;
+    transition:0.2s;
+}
+.stationMap td:hover {
+    background:#0a0;
+    color:#fff;
+    transform:scale(1.1);
+}
+
+/* GEO Timeline */
+.timeline {
+    display:flex;
+    gap:20px;
+    justify-content:center;
+}
+.timeline div {
+    padding:15px;
+    border:1px solid #333;
+    background:#111;
+    border-radius:8px;
+    width:180px;
+    text-align:center;
+    animation:fadeIn 2s ease-in-out;
+}
+@keyframes fadeIn {
+    from { opacity:0; transform:translateY(20px); }
+    to   { opacity:1; transform:translateY(0); }
+}
+
+/* PIPE Flow */
+.pipeFlow {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.pipeStep {
+    padding:10px;
+    border:1px solid #333;
+    background:#111;
+    border-radius:6px;
+    min-width:120px;
+    text-align:center;
+    animation:pulse 2s infinite;
+}
+@keyframes pulse {
+    0% { transform:scale(1); }
+    50% { transform:scale(1.1); }
+    100% { transform:scale(1); }
+}
+
+/* Gauge */
+.gaugeBox {
+    width:300px;
+    margin:auto;
+}
+.gauge {
+    height:20px;
+    background:#003;
+    margin-bottom:10px;
+    border-radius:4px;
+    transition:width 1s;
+    box-shadow:0 0 10px #0f0;
+}
 </style>
 </head>
 <body>
 
-<h1>LAGE – Systemkern</h1>
+<h1>LAGE – Systemkern · ECO</h1>
 
-<pre>
-KONSTELLATION = TMP
-FREQ = 12e
-6D = D3
-360° = aktiv
-</pre>
+<div class="box">
+    <h2>Orbit‑C (3D‑Sphere)</h2>
+    <div id="orbitSphere" class="orbitSphere"></div>
+</div>
 
-<h2>Dateien</h2>
-<a href="./LAGE.html">Position</a>
-<a href="./ID.html">Identität</a>
-<a href="./LAGE.respo">Respo</a>
-<a href="./ghost.html">Ghost</a>
-<a href="./ghost_scan.html">Ghost Scan</a>
-<a href="./LAGE.json">JSON</a>
-<a href="./LAGE.txt">TXT</a>
-<a href="./LAGEID.html">LAGE ID</a>
-<a href="./LAGEindex.html">LAGE Index</a>
-<a href="./META.ID.html">META ID</a>
-<a href="./META-index.html">META Index</a>
+<div class="box">
+    <h2>Stationen – Heatmap</h2>
+    <table id="stationMap" class="stationMap"></table>
+</div>
+
+<div class="box">
+    <h2>GEO – Timeline</h2>
+    <div id="geoTimeline" class="timeline"></div>
+</div>
+
+<div class="box">
+    <h2>PIPE‑12 – Flow</h2>
+    <div id="pipeFlow" class="pipeFlow"></div>
+</div>
+
+<div class="box">
+    <h2>QI / IQQ – EVO‑Gauge</h2>
+    <div class="gaugeBox">
+        <div>QI</div>
+        <div class="gauge" id="qiGauge"></div>
+        <div>IQQ</div>
+        <div class="gauge" id="iqqGauge"></div>
+    </div>
+</div>
+
+<div class="box">
+    <h2>ID‑Modus</h2>
+    <pre id="idMode"></pre>
+</div>
+
+<script type="module">
+
+/* VECTOR LADEN */
+import raw from "../VECTOR/core/vector_raw.json" assert { type:"json" };
+import VECTOR_EXP from "../VECTOR/core/vector.EXP.js";
+window.vectorEXP = new VECTOR_EXP(raw);
+const vector = window.vectorEXP;
+
+/* GEO LADEN */
+import * as GEO from "../VECTOR/GEOUniverse.js";
+
+/* ID LADEN */
+import { ID_KOOP } from "../ID/IDkoop.js";
+import { ID_NEUTRAL } from "../ID/IDneutral.js";
+import { ID_POOK } from "../ID/IDpook.js";
+
+/* PIPE12 LADEN */
+import { PIPE12 } from "../IMPORT/PIPE.js";
+
+/* WERT */
+const value = 42;
+
+/* ORBIT‑C */
+const ORBIT_C = ["⊙","⊕","⊗","○","□","△","◇","∞"];
+document.getElementById("orbitSphere").innerText =
+    ORBIT_C[vector.qi(value)];
+
+/* STATIONEN HEATMAP */
+const stations = [
+    "IKI","UC","ORBIT","SHIFT","AURA","NAVI",
+    "DRIFT","CORE","EDGE","FLOW","BALANCE","MATRIX"
+];
+
+let map = "";
+for (let i = 0; i < 12; i++) {
+    map += "<tr>";
+    for (let j = 0; j < 12; j++) {
+        const active = (i === vector.qi(value) && j === vector.qi(value));
+        const color = active ? "#004" : `rgb(0,${j*20},0)`;
+        map += `<td style="background:${color}; color:${active ? "#6cf" : "#0f0"}">${stations[j]}</td>`;
+    }
+    map += "</tr>";
+}
+document.getElementById("stationMap").innerHTML = map;
+
+/* GEO TIMELINE */
+document.getElementById("geoTimeline").innerHTML = `
+    <div><b>Vergangenheit</b><br>${GEO.past(value)}</div>
+    <div><b>Epoche</b><br>${GEO.epoch(value)}</div>
+    <div><b>Zukunft</b><br>${GEO.future(value)}</div>
+`;
+
+/* PIPE FLOW */
+const pipe = PIPE12(value).PIPE12;
+const pipeValues = [
+    pipe.step5,
+    pipe.step6,
+    pipe.step7,
+    pipe.step8
+];
+const labels = ["PIPE‑3","PIPE‑6","PIPE‑9","PIPE‑12"];
+
+let flow = "";
+pipeValues.forEach((v, i) => {
+    flow += `<div class="pipeStep"><b>${labels[i]}</b><br>${v}</div>`;
+});
+document.getElementById("pipeFlow").innerHTML = flow;
+
+/* EVO GAUGE */
+document.getElementById("qiGauge").style.width =
+    (vector.qi(value) * 25) + "px";
+document.getElementById("iqqGauge").style.width =
+    (vector.iqq(value) * 40) + "px";
+
+/* ID‑MODUS */
+document.getElementById("idMode").innerText =
+    ID_NEUTRAL.info();
+
+</script>
 
 </body>
 </html>
