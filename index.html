@@ -1,74 +1,137 @@
-/* ORBIT-SPHERE · EVO-6D */
-.orbitSphere {
-    width:260px;
-    height:260px;
-    margin:auto;
-    border-radius:50%;
-    background: radial-gradient(circle at 50% 50%,
-        #000 0%,
-        #02030a 35%,
-        #001a33 60%,
-        #000 100%
-    );
-    box-shadow:
-        0 0 60px #0af,
-        0 0 120px #003,
-        inset 0 0 80px #000;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    animation:spinSphere 10s linear infinite;
-    transform-style:preserve-3d;
-    position:relative;
-    perspective:800px;
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>LAGE · Orbit · 6D</title>
+
+<!-- Orbit-Sphere CSS -->
+<link rel="stylesheet" href="TMP/Sphere.css">
+
+<style>
+body { background:#000; color:#0ff; font-family:Consolas; padding:20px; }
+h1 { color:#6cf; }
+h2 { color:#0f0; margin-top:30px; }
+pre { background:#111; padding:12px; border:1px solid #333; border-radius:6px; }
+a { color:#6cf; }
+
+/* NC intelligent attachments */
+.ncBox {
+    margin-top:20px; padding:10px; background:#111;
+    border:1px solid #333; border-radius:6px;
+}
+.ncItem {
+    padding:4px; margin:3px; display:inline-block;
+    background:#222; border-radius:4px; cursor:pointer;
+}
+.ncItem:hover { background:#333; }
+</style>
+
+<script type="module">
+import { LA_POOL } from "./LA_POOL.js";
+import { LAGE } from "./LAGE.js";
+import { LAGE_QUADRAT } from "./LAGE_QUADRAT.js";
+import { VEC } from "./VEC.js";
+import { FUSE_IN, FUSE_OUT } from "./FUSE.js";
+
+async function start() {
+
+    /* 1) Pool laden */
+    const pool = await LA_POOL.load();
+
+    /* 2) LAGE 360° */
+    const lage360 = LAGE.activate(pool);
+
+    /* 3) Quadrat */
+    const quadrat = LAGE_QUADRAT.live(pool);
+
+    /* 4) VEC */
+    const vec = VEC.compute(quadrat);
+
+    /* 5) Fusion */
+    const fuseIn = FUSE_IN.build(vec);
+    const fuseOut = FUSE_OUT.cut(vec);
+
+    /* 6) Anzeigen */
+    document.getElementById("pool").textContent =
+        JSON.stringify(pool, null, 2);
+
+    document.getElementById("lage").textContent =
+        JSON.stringify(lage360, null, 2);
+
+    document.getElementById("quadrat").textContent =
+        JSON.stringify(quadrat, null, 2);
+
+    document.getElementById("vec").textContent =
+        JSON.stringify(vec, null, 2);
+
+    document.getElementById("fuseIn").textContent = fuseIn;
+    document.getElementById("fuseOut").textContent = fuseOut;
+
+    /* 7) NC Attachments */
+    loadNC();
 }
 
-/* SCHWARZES LOCH · GRAVITY CORE */
-.blackHole {
-    width:80px;
-    height:80px;
-    border-radius:50%;
-    background: radial-gradient(circle,
-        #000 0%,
-        #050505 40%,
-        #000 100%
-    );
-    box-shadow:
-        inset 0 0 40px #000,
-        0 0 30px #0ff,
-        0 0 60px #0af;
-    position:absolute;
-    z-index:5;
-    animation:holePulse 2.4s ease-in-out infinite;
-    filter:blur(0.5px);
-}
+function loadNC() {
+    const nc = [
+        "NC²",
+        "NC²□",
+        "NC²octa",
+        "NC²dual",
+        "NC²align",
+        "NC²octa²",
+        "NC²octa³",
+        "NC²merge"
+    ];
 
-/* ORBIT SYMBOL · FLOATING */
-.orbitSymbol {
-    font-size:80px;
-    color:#6cf;
-    text-shadow:
-        0 0 20px #0ff,
-        0 0 40px #0af;
-    z-index:10;
-    position:relative;
-    animation:floatSymbol 4s ease-in-out infinite;
+    const box = document.getElementById("ncBox");
+    nc.forEach(n => {
+        const el = document.createElement("div");
+        el.className = "ncItem";
+        el.textContent = n;
+        el.onclick = () => alert("LAGE Attachment geladen: " + n);
+        box.appendChild(el);
+    });
 }
+</script>
 
-/* ANIMATIONEN */
-@keyframes holePulse {
-    0%   { transform:scale(1);   box-shadow: inset 0 0 40px #000, 0 0 30px #0ff; }
-    50%  { transform:scale(1.25); box-shadow: inset 0 0 60px #000, 0 0 60px #0ff; }
-    100% { transform:scale(1);   box-shadow: inset 0 0 40px #000, 0 0 30px #0ff; }
-}
+</head>
 
-@keyframes spinSphere {
-    from { transform:rotateY(0deg) rotateX(0deg); }
-    to   { transform:rotateY(360deg) rotateX(360deg); }
-}
+<body onload="start()">
 
-@keyframes floatSymbol {
-    0%   { transform:translateY(0px); }
-    50%  { transform:translateY(-10px); }
-    100% { transform:translateY(0px); }
-}
+<h1>LAGE · Orbit · 6D</h1>
+
+<!-- Orbit-Sphere -->
+<div class="orbitSphere">
+    <div class="blackHole"></div>
+    <div class="orbitSymbol">⊙</div>
+</div>
+
+<h2>LAGE-Datenpool</h2>
+<pre id="pool">Lade…</pre>
+
+<h2>LAGE 360°</h2>
+<pre id="lage">Lade…</pre>
+
+<h2>LAGE-Quadrat</h2>
+<pre id="quadrat">Lade…</pre>
+
+<h2>VECtor</h2>
+<pre id="vec">Lade…</pre>
+
+<h2>Fusion · FUSE-IN</h2>
+<pre id="fuseIn">Lade…</pre>
+
+<h2>Fusion · FUSE-OUT</h2>
+<pre id="fuseOut">Lade…</pre>
+
+<h2>NC² Attachments</h2>
+<div id="ncBox" class="ncBox"></div>
+
+<h2>Weiter zu LA</h2>
+<a href="../LA/index.html">LA · Lage-Achsen</a>
+
+<h2>Weiter zu GE</h2>
+<a href="../GE/index.html">GE · Geometrie</a>
+
+</body>
+</html>
